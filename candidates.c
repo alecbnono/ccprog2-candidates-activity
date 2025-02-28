@@ -10,7 +10,7 @@ typedef struct
     Str20       first,
                 last;
     char        middle;
-}NameType;
+} nameType;
 
 typedef struct 
 {
@@ -34,7 +34,7 @@ typedef struct
 
 typedef struct
 {
-    NameType    name;
+    nameType    name;
     dateType    birthday;
     Str128      party;
     Str32       position;
@@ -42,6 +42,8 @@ typedef struct
     int         numBills;
     ratingType  rating;
 } candidateType;
+
+typedef candidateType aCanditates[10];
 
 void getName();
 void getDate();
