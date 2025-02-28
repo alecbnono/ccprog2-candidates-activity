@@ -7,7 +7,7 @@ typedef char Str32[33];
 typedef struct 
 {
     Str20   First,
-            Middle,                                                                         
+            Middle,
             Last;
 }NameType;
 typedef struct 
@@ -31,7 +31,15 @@ typedef struct candidateTag
 
 }candidateType;
 
-
+void getName();
+void getDate();
+void getInput();
+void displayDate();
+void display();
+void displayByParty();
+void swap();
+void sortByRating();
+void sortAlphabetical();
 int main()
 {
 
