@@ -48,9 +48,46 @@ typedef candidateType aCanditates[10];
 void getName();
 void getDate();
 void getInput();
-void displayDate();
-void display();
-void displayByParty();
+void displayDate(dateType Date)
+{
+    char *months[13] = {"January", "February", "March", 
+                        "April", "May", "June", "July",
+                        "August", "September", "October",
+                        "November", "December"};
+    printf("%s %d, %d \n", months[Date.month - 1],Date.day, Date.year);
+}
+void display(candidateType Info)
+{
+    int i;
+    printf("Name: %s, %s %c. \n", Info.name.last, Info.name.first, Info.name.middle);
+    printf("Birthday: ");
+    displayDate(Info.birthday);
+    printf("Party: %s \n", Info.party);
+    printf("Position: %s \n", Info.position);
+
+    for (i = 0; i < Info.numBills; i++)
+    {
+        printf("Bill Name: %s \n", Info.bill[i].billName);
+        displayDate(Info.bill[i].date);
+    }
+
+    printf("Confidence Rating: %.2f \n", Info.rating.confidence);
+    printf("Survey Organizer: %s \n", Info.rating.orgAdmin);
+    printf("Date of Survey: ");
+    displayDate(Info.rating.date);
+
+}
+void displayByParty(aCanditates Candidate, Str128 partyName)
+{
+    int i;
+    for (i = 0; i < 20; i++)
+    {
+        if (strcmp(Candidate[i].party, partyName) == 0)
+        {
+            display(Candidate[i]);
+        }
+    }
+}
 void swap();
 void sortByRating();
 void sortAlphabetical();
