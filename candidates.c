@@ -43,18 +43,18 @@ typedef struct
     ratingType  rating;
 } candidateType;
 
-typedef candidateType aCanditates[10];
+typedef candidateType aCanditates[20];
 
-void getName();
-void getDate();
-void getInput();
+void getName(nameType *name);
+void getDate(dateType *date);
+void getInput(candidateType *candidate);
 void displayDate(dateType Date)
 {
-    char *months[13] = {"January", "February", "March", 
+    char *months[12] = {"January", "February", "March", 
                         "April", "May", "June", "July",
                         "August", "September", "October",
                         "November", "December"};
-    printf("%s %d, %d \n", months[Date.month - 1],Date.day, Date.year);
+    printf("%s %d, %d \n", months[Date.month - 1], Date.day, Date.year);
 }
 void display(candidateType Info)
 {
@@ -88,9 +88,42 @@ void displayByParty(aCanditates Candidate, Str128 partyName)
         }
     }
 }
-void swap();
-void sortByRating();
-void sortAlphabetical();
+void swap(candidateType *candidateA, candidateType *candidateB)
+{
+    candidateType temp;
+
+    temp = *candidateA;
+    *candidateA = *candidateB;
+    *candidateB = temp; 
+}
+void sortByRating(aCanditates Candidate)
+{
+    int i, j, low_ind;
+    
+    for(i = 0; i < 19; i++)
+    {
+        low_ind = i;
+        for(j = i + 1; j < 20; j++)
+            if(Candidate[low_ind].rating.confidence > Candidate[j].rating.confidence)
+                low_ind = j;
+        if(low_ind != i)
+            swap(&Candidate[i], &Candidate[low_ind]);
+    }
+}
+void sortAlphabetical(aCanditates Candidate)
+{
+    int i, j, low_ind;
+    
+    for(i = 0; i < 19; i++)
+    {
+        low_ind = i;
+        for(j = i + 1; j < 20; j++)
+            if(strcmp(Candidate[low_ind].name.last, Candidate[j].name.last) == 1)
+                low_ind = j;
+        if(low_ind != i)
+            swap(&Candidate[i], &Candidate[low_ind]);
+    } 
+}
 
 int main()
 {
