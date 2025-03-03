@@ -79,13 +79,18 @@ void display(candidateType Info)
 }
 void displayByParty(aCanditates Candidate, Str128 partyName)
 {
-    int i;
-    for (i = 0; i < 20; i++)
+    int i = 0;
+    char prompt = '\n';
+
+    while(prompt == '\n' && i < 20)
     {
         if (strcmp(Candidate[i].party, partyName) == 0)
         {
             display(Candidate[i]);
+            printf("Next Cadidate[Enter] / Exit[0]\n");
+            scanf("%c", &prompt);
         }
+        i++;
     }
 }
 void swap(candidateType *candidateA, candidateType *candidateB)
