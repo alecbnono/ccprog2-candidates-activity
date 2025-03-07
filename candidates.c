@@ -47,26 +47,26 @@ typedef candidateType aCanditates[20];
 
 void getName(nameType *name)
 {
-        printf("Enter First Name: ");
-        scanf("%s", name->first);
-        printf("Enter Last Name: ");
-        scanf("%s", name->last);
-        printf("Enter Middle Initial: ");
-        scanf("%c", &name->middle);
+    printf("Enter First Name: ");
+    scanf("%s", name->first);
+    printf("Enter Last Name: ");
+    scanf("%s", name->last);
+    printf("Enter Middle Initial: ");
+    scanf("%c", &name->middle);
 }
 void getDate(dateType *date)
 {
-        printf("Enter Birthyear: ");
-        scanf("%d", &date->year);
-        printf("Enter Birthmonth: ");
-        scanf("%d", &date->month);
-        printf("Enter Birthday: ");
-        scanf("%d", &date->day);
+    printf("Enter Birthyear: ");
+    scanf("%d", &date->year);
+    printf("Enter Birthmonth: ");
+    scanf("%d", &date->month);
+    printf("Enter Birthday: ");
+    scanf("%d", &date->day);
 }
 void getInput(candidateType *candidate)
 {
-        getDate(&candidate->birthday);
-        getName(&candidate->name);
+    getDate(&candidate->birthday);
+    getName(&candidate->name);
 }
 
 void displayDate(dateType Date)
@@ -103,7 +103,7 @@ void displayByParty(aCanditates Candidate, Str128 partyName)
     int i = 0;
     char prompt = '\n';
 
-    while(prompt == '\n' && i < 20)
+    do
     {
         if (strcmp(Candidate[i].party, partyName) == 0)
         {
@@ -112,7 +112,7 @@ void displayByParty(aCanditates Candidate, Str128 partyName)
             scanf("%c", &prompt);
         }
         i++;
-    }
+    }while(prompt == '\n' && i < 20);
 }
 void swap(candidateType *candidateA, candidateType *candidateB)
 {
@@ -153,8 +153,14 @@ void sortAlphabetical(aCanditates Candidate)
 
 void navigateMainMenu(aCanditates Candidate)
 {
-        int choice = -1;
-
+    int i = 0,
+        numCandidates = 0,
+        choice = -1;
+    char prompt;
+    Str128 partyName;
+    
+    do
+    {
         printf("[1] Add Candidate Info\n");
         printf("[2] Display All Candidates \n");
         printf("[3] Display by Rating\n");
@@ -163,34 +169,37 @@ void navigateMainMenu(aCanditates Candidate)
 
         do
         {
-                printf("Enter Choice: ");
-                scanf("%d", &choice);
-                if (choice < 0 || choice > 4)
-                        printf("Invalid input. Please enter again.\n");
+            printf("Enter Choice: ");
+            scanf("%d", &choice);
+            if (choice < 0 || choice > 4)
+                printf("Invalid input. Please enter again.\n");
         }
-        while (choice < 0 && choice > 4);
+        while (choice < 0 || choice > 4);
 
         switch (choice)
         {
-                case 0:
-                        break;
-                case 1:
-                        break;
-                case 2:
-                        break;
-                case 3:
-                        break;
-                case 4:
-                        break;
+            case 1:
+                getInput(&Candidate[0]);
+                break;
+            case 2:
+                sortAlphabetical(Candidate);
+                for(i = 0; i < numCandidates; i++)
+                    display(Candidate[i]);
+                break;
+            case 3:
+                sortByRating(Candidate);
+                break;
+            case 4:
+                printf("Enter a Party: ");
+                scanf("%s", partyName);
+                displayByParty(Candidate, partyName);
+                break;
         }
+    }while(choice != 0);
 }
 
 int main()
 {
-        
-
-
-
-
+    
     return 0;
 }
