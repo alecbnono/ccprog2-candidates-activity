@@ -45,9 +45,30 @@ typedef struct
 
 typedef candidateType aCanditates[20];
 
-void getName(nameType *name);
-void getDate(dateType *date);
-void getInput(candidateType *candidate);
+void getName(nameType *name)
+{
+        printf("Enter First Name: ");
+        scanf("%s", name->first);
+        printf("Enter Last Name: ");
+        scanf("%s", name->last);
+        printf("Enter Middle Initial: ");
+        scanf("%c", &name->middle);
+}
+void getDate(dateType *date)
+{
+        printf("Enter Birthyear: ");
+        scanf("%d", &date->year);
+        printf("Enter Birthmonth: ");
+        scanf("%d", &date->month);
+        printf("Enter Birthday: ");
+        scanf("%d", &date->day);
+}
+void getInput(candidateType *candidate)
+{
+        getDate(&candidate->birthday);
+        getName(&candidate->name);
+}
+
 void displayDate(dateType Date)
 {
     char *months[12] = {"January", "February", "March", 
@@ -87,7 +108,7 @@ void displayByParty(aCanditates Candidate, Str128 partyName)
         if (strcmp(Candidate[i].party, partyName) == 0)
         {
             display(Candidate[i]);
-            printf("Next Cadidate[Enter] / Exit[0]\n");
+            printf("Next Candidate[Enter] / Exit[0]\n");
             scanf("%c", &prompt);
         }
         i++;
@@ -130,9 +151,43 @@ void sortAlphabetical(aCanditates Candidate)
     } 
 }
 
+void navigateMainMenu(aCanditates Candidate)
+{
+        int choice = -1;
+
+        printf("[1] Add Candidate Info\n");
+        printf("[2] Display All Candidates \n");
+        printf("[3] Display by Rating\n");
+        printf("[4] Display by Party\n");
+        printf("[0] Exit\n");
+
+        do
+        {
+                printf("Enter Choice: ");
+                scanf("%d", &choice);
+                if (choice < 0 || choice > 4)
+                        printf("Invalid input. Please enter again.\n");
+        }
+        while (choice < 0 && choice > 4);
+
+        switch (choice)
+        {
+                case 0:
+                        break;
+                case 1:
+                        break;
+                case 2:
+                        break;
+                case 3:
+                        break;
+                case 4:
+                        break;
+        }
+}
+
 int main()
 {
-
+        
 
 
 
