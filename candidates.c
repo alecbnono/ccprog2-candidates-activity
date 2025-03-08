@@ -189,26 +189,29 @@ void displayByParty(aCandidates Candidate, Str128 partyName, int numCandidates)
             numParty = SearchParty(Candidate, partyName, numCandidates);
     char    prompt = '\n';
 
-    do
-    {
-        if(strcmp(Candidate[i].party, partyName) == 0)
+    if(numParty > 0)
+        do
         {
-            printf("CANDIDATE #%d:\n", ctr + 1);
-            display(Candidate[i]);
-            if(ctr < numParty - 1)
+            if(strcmp(Candidate[i].party, partyName) == 0)
             {
-                do
+                printf("CANDIDATE #%d:\n", ctr + 1);
+                display(Candidate[i]);
+                if(ctr < numParty - 1)
                 {
-                    printf("Next Candidate[1] / Exit[0]:");
-                    scanf(" %c", &prompt);
-                    if(prompt > '1' || prompt < '0')
-                        printf("Invalid input. Please enter again.\n");
-                } while(prompt > '1' || prompt < '0');
+                    do
+                    {
+                        printf("Next Candidate[1] / Exit[0]:");
+                        scanf(" %c", &prompt);
+                        if(prompt > '1' || prompt < '0')
+                            printf("Invalid input. Please enter again.\n");
+                    } while(prompt > '1' || prompt < '0');
+                }
+                ctr++;
             }
-            ctr++;
-        }
-        i++;
-    }while(prompt == '1' && i < numCandidates);
+            i++;
+        }while(prompt == '1' && i < numCandidates);
+    else
+        printf("NO CANDIDATE FOUND UNDER THIS PARTY.\n\n");
 }
 
 void swap(candidateType *candidateA, candidateType *candidateB)
@@ -286,7 +289,7 @@ int main()
                     numCandidates++;
                 }
                 else
-                    printf("ERROR: Maximum number of candidates has been reached.\n");
+                    printf("ERROR: Maximum number of candidates has been reached.\n\n");
                 break;
             case 2:
                 printf("\n");
@@ -301,7 +304,7 @@ int main()
                     }
                 }
                 else
-                    printf("ERROR: Please enter candidate information first.\n");
+                    printf("ERROR: Please enter candidate information first.\n\n");
                 break;
             case 3:
                 printf("\n");
@@ -328,7 +331,7 @@ int main()
                     } while (prompt == '1' && i < numCandidates);
                 }
                 else
-                    printf("ERROR: Please enter candidate information first.\n");
+                    printf("ERROR: Please enter candidate information first.\n\n");
                 break;
             case 4:
                 printf("\n");
@@ -339,7 +342,7 @@ int main()
                     displayByParty(arrCandidates, partyName, numCandidates);
                 }
                 else
-                    printf("ERROR: Please enter candidate information first.\n");
+                    printf("ERROR: Please enter candidate information first.\n\n");
                 break;
         }
     } while(choice != 0);
