@@ -262,7 +262,7 @@ int main()
     do
     {
         printf("\tMAIN MENU\n");
-        printf("[1] Add Candidate Info\n");
+        printf("[1] Add Candidate Information\n");
         printf("[2] Display All Candidates \n");
         printf("[3] Display by Rating\n");
         printf("[4] Display by Party\n");
@@ -280,45 +280,66 @@ int main()
         {
             case 1:
                 printf("\n");
-                getInput(&arrCandidates[numCandidates]);
-                numCandidates++;
+                if(numCandidates < 20)
+                {
+                    getInput(&arrCandidates[numCandidates]);
+                    numCandidates++;
+                }
+                else
+                    printf("ERROR: Maximum number of candidates has been reached.\n");
                 break;
             case 2:
                 printf("\n");
-                sortAlphabetical(arrCandidates, numCandidates);
-                for(i = 0; i < numCandidates; i++)
-                {   
-                    printf("CANDIDATE #%d:\n", i + 1);
-                    display(arrCandidates[i]);
+                if(numCandidates > 0)
+                {
+                    if(numCandidates > 1)
+                        sortAlphabetical(arrCandidates, numCandidates);
+                    for(i = 0; i < numCandidates; i++)
+                    {   
+                        printf("CANDIDATE #%d:\n", i + 1);
+                        display(arrCandidates[i]);
+                    }
                 }
+                else
+                    printf("ERROR: Please enter candidate information first.\n");
                 break;
             case 3:
                 printf("\n");
-                sortByRating(arrCandidates, numCandidates);
-                i = 0;
-                do
+                if(numCandidates > 0)
                 {
-                    printf("CANDIDATE #%d:\n", i + 1);
-                    display(arrCandidates[i]);
-                    if(i < numCandidates - 1)
+                    if(numCandidates > 1)
+                        sortByRating(arrCandidates, numCandidates);
+                    i = 0;
+                    do
                     {
-                        do
+                        printf("CANDIDATE #%d:\n", i + 1);
+                        display(arrCandidates[i]);
+                        if(i < numCandidates - 1)
                         {
-                            printf("Next Candidate[1] / Exit[0]: ");
-                            scanf(" %c", &prompt);
-                            if(prompt > '1' || prompt < '0')
-                                printf("Invalid input. Please enter again.\n");
-                        } while(prompt > '1' || prompt < '0');
-                    }
-                    i++;
-                } while (prompt == '1' && i < numCandidates);
-                
+                            do
+                            {
+                                printf("Next Candidate[1] / Exit[0]: ");
+                                scanf(" %c", &prompt);
+                                if(prompt > '1' || prompt < '0')
+                                    printf("Invalid input. Please enter again.\n");
+                            } while(prompt > '1' || prompt < '0');
+                        }
+                        i++;
+                    } while (prompt == '1' && i < numCandidates);
+                }
+                else
+                    printf("ERROR: Please enter candidate information first.\n");
                 break;
             case 4:
                 printf("\n");
-                printf("Enter a Party: ");
-                getString(partyName, 128);
-                displayByParty(arrCandidates, partyName, numCandidates);
+                if(numCandidates > 0)
+                {
+                    printf("Enter a Party: ");
+                    getString(partyName, 128);
+                    displayByParty(arrCandidates, partyName, numCandidates);
+                }
+                else
+                    printf("ERROR: Please enter candidate information first.\n");
                 break;
         }
     } while(choice != 0);
