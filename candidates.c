@@ -48,8 +48,16 @@ typedef candidateType aCanditates[20];
 void getString(char String[], int maxChar)
 {
     int  i = 0;
-    char ch;
-
+    char ch,
+         blank;
+    
+    scanf("%c", &blank);
+    if(blank != '\n')
+    {
+        String[i] = blank;
+        i++;
+    }
+    
     do
     {  scanf("%c", &ch);
         if (ch != '\n')
@@ -125,9 +133,11 @@ void displayDate(dateType Date)
                         "November", "December"};
     printf("%s %d, %d \n", months[Date.month - 1], Date.day, Date.year);
 }
+
 void display(candidateType Info)
 {
     int i;
+
     printf("Name: %s, %s %c. \n", Info.name.last, Info.name.first, Info.name.middle);
     printf("Birthday: ");
     displayDate(Info.birthday);
@@ -146,7 +156,8 @@ void display(candidateType Info)
     displayDate(Info.rating.date);
 
 }
-void displayByParty(aCanditates Candidate, Str128 partyName)
+
+void displayByParty(aCanditates Candidate, Str128 partyName, int numCandidates)
 {
     int i = 0;
     char prompt = '\n';
@@ -160,8 +171,9 @@ void displayByParty(aCanditates Candidate, Str128 partyName)
             scanf("%c", &prompt);
         }
         i++;
-    }while(prompt == '\n' && i < 20);
+    }while(prompt == '\n' && i < numCandidates);
 }
+
 void swap(candidateType *candidateA, candidateType *candidateB)
 {
     candidateType temp;
@@ -170,28 +182,30 @@ void swap(candidateType *candidateA, candidateType *candidateB)
     *candidateA = *candidateB;
     *candidateB = temp; 
 }
-void sortByRating(aCanditates Candidate)
+
+void sortByRating(aCanditates Candidate, int numCandidates)
 {
     int i, j, low_ind;
     
-    for(i = 0; i < 19; i++)
+    for(i = 0; i < numCandidates - 1; i++)
     {
         low_ind = i;
-        for(j = i + 1; j < 20; j++)
+        for(j = i + 1; j < numCandidates; j++)
             if(Candidate[low_ind].rating.confidence > Candidate[j].rating.confidence)
                 low_ind = j;
         if(low_ind != i)
             swap(&Candidate[i], &Candidate[low_ind]);
     }
 }
-void sortAlphabetical(aCanditates Candidate)
+
+void sortAlphabetical(aCanditates Candidate, int numCandidates)
 {
     int i, j, low_ind;
     
-    for(i = 0; i < 19; i++)
+    for(i = 0; i < numCandidates - 1; i++)
     {
         low_ind = i;
-        for(j = i + 1; j < 20; j++)
+        for(j = i + 1; j < numCandidates; j++)
             if(strcmp(Candidate[low_ind].name.last, Candidate[j].name.last) == 1)
                 low_ind = j;
         if(low_ind != i)
@@ -222,8 +236,7 @@ int main()
             scanf("%d", &choice);
             if (choice < 0 || choice > 4)
                 printf("Invalid input. Please enter again.\n");
-        }
-        while (choice < 0 || choice > 4);
+        } while(choice < 0 || choice > 4);
 
         switch (choice)
         {
@@ -232,20 +245,20 @@ int main()
                 numCandidates++;
                 break;
             case 2:
-                sortAlphabetical(arrCandidates);
+                sortAlphabetical(arrCandidates, numCandidates);
                 for(i = 0; i < numCandidates; i++)
                     display(arrCandidates[i]);
                 break;
             case 3:
-                sortByRating(arrCandidates);
+                sortByRating(arrCandidates, numCandidates);
                 break;
             case 4:
                 printf("Enter a Party: ");
                 scanf("%s", partyName);
-                displayByParty(arrCandidates, partyName);
+                displayByParty(arrCandidates, partyName, numCandidates);
                 break;
         }
-    }while(choice != 0);
+    } while(choice != 0);
 
     return 0;
 }
