@@ -63,24 +63,27 @@ void getString(char String[], int maxChar)
 
 void getName(nameType *name)
 {
-    printf("Enter Last Name: ");
+    printf("Last Name: ");
     scanf(" %s", name->last);
-    printf("Enter First Name: ");
+    printf("First Name: ");
     scanf(" %s", name->first);
-    printf("Enter Middle Initial: ");
+    printf("Middle Initial: ");
     scanf(" %c", &name->middle);
 }
 void getDate(dateType *date)
 {
-    printf("Enter Month (Numerical): ");
+    printf("Month (Numerical): ");
     scanf("%d", &date->month);
-    printf("Enter Day: ");
+    printf("Day: ");
     scanf("%d", &date->day);
-    printf("Enter Year: ");
+    printf("Year: ");
     scanf("%d", &date->year);
 }
 void getInput(candidateType *candidate)
 {
+    int i = 0;
+    Str128 billTemp;
+    
     printf("Enter Candidate Information:\n");
     getName(&candidate->name);
     printf("Birth Date:\n");
@@ -89,6 +92,29 @@ void getInput(candidateType *candidate)
     getString(candidate->position, 32);
     printf("Party: ");
     getString(candidate->party, 128);
+    printf("Bills Passed:\n");
+    do 
+    {
+        printf("Enter [0] in Bill Name to exit.\n");
+        printf("Bill #%d Name: ", i + 1);
+        getString(billTemp, 128);
+        if(strcmp(billTemp, "0"))
+        {
+            strcpy(candidate->bill[i].billName, billTemp);
+            printf("Date Passed:\n");
+            getDate(&candidate->bill[i].date);
+            candidate->numBills ++;
+        }
+        i++;
+    }while(i < 10 && strcmp(billTemp, "0"));
+
+    printf("Rating:\n");
+    printf("Confidence: ");
+    scanf("%f", &candidate->rating.confidence);
+    printf("Administered by: ");
+    getString(candidate->rating.orgAdmin, 32);
+    printf("Date of Survey\n");
+    getDate(&candidate->rating.date);
 }
 
 void displayDate(dateType Date)
