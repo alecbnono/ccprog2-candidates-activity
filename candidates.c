@@ -70,6 +70,18 @@ void getString(char String[], int maxChar)
     String[i] = '\0';
 }
 
+int SearchParty(aCandidates Candidates, Str128 partyName, int numCandidates)
+{
+    int i,
+        ctr = 0;
+
+    for(i = 0; i < numCandidates; i++)
+        if(!strcmp(Candidates[i].party, partyName))
+            ctr++;
+
+    return ctr;
+}
+
 void getName(nameType *name)
 {
     printf("Last Name: ");
@@ -172,19 +184,25 @@ void display(candidateType Info)
 
 void displayByParty(aCandidates Candidate, Str128 partyName, int numCandidates)
 {
-    int i = 0;
-    char prompt = '\n';
+    int     i = 0,
+            ctrParty = SearchParty(Candidate, partyName, numCandidates);
+    char    prompt = '\n';
 
     do
     {
         if(strcmp(Candidate[i].party, partyName) == 0)
         {
             display(Candidate[i]);
-            printf("Next Candidate[Enter] / Exit[0]\n");
-            scanf("%c", &prompt);
+            do
+            {
+                printf("Next Candidate[1] / Exit[0]\n");
+                scanf(" %c", &prompt);
+                if(prompt > '1' || prompt < '0')
+                    printf("Invalid input. Please enter again.\n");
+            } while(prompt > '1' || prompt < '0');
         }
         i++;
-    }while(prompt == '\n' && i < numCandidates);
+    }while(prompt == '1' && i < numCandidates);
 }
 
 void swap(candidateType *candidateA, candidateType *candidateB)
@@ -292,7 +310,7 @@ int main()
                 break;
             case 4:
                 printf("Enter a Party: ");
-                scanf("%s", partyName);
+                getString(partyName, 128);
                 displayByParty(arrCandidates, partyName, numCandidates);
                 break;
         }
