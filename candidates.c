@@ -271,6 +271,24 @@ int main()
             case 3:
                 printf("\n");
                 sortByRating(arrCandidates, numCandidates);
+                i = 0;
+                do
+                {
+                    printf("CANDIDATE #%d:\n", i + 1);
+                    display(arrCandidates[i]);
+                    if(i < numCandidates - 1)
+                    {
+                        do
+                        {
+                            printf("Next Candidate[1] / Exit[0]: ");
+                            scanf(" %c", &prompt);
+                            if(prompt > '1' || prompt < '0')
+                                printf("Invalid input. Please enter again.\n");
+                        } while(prompt > '1' || prompt < '0');
+                    }
+                    i++;
+                } while (prompt == '1' && i < numCandidates);
+                
                 break;
             case 4:
                 printf("Enter a Party: ");
