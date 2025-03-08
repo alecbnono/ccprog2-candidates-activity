@@ -45,6 +45,22 @@ typedef struct
 
 typedef candidateType aCanditates[20];
 
+void getString(char String[], int maxChar)
+{
+    int  i = 0;
+    char ch;
+
+    do
+    {  scanf("%c", &ch);
+        if (ch != '\n')
+        {
+            String[i] = ch;
+            i++;
+        }
+    } while (i < maxChar && ch != '\n');
+    String[i] = '\0';
+}
+
 void getName(nameType *name)
 {
     printf("Enter Last Name: ");
@@ -52,11 +68,11 @@ void getName(nameType *name)
     printf("Enter First Name: ");
     scanf(" %s", name->first);
     printf("Enter Middle Initial: ");
-    scanf("%c", &name->middle);
+    scanf(" %c", &name->middle);
 }
 void getDate(dateType *date)
 {
-    printf("Enter Month: ");
+    printf("Enter Month (Numerical): ");
     scanf("%d", &date->month);
     printf("Enter Day: ");
     scanf("%d", &date->day);
@@ -65,8 +81,14 @@ void getDate(dateType *date)
 }
 void getInput(candidateType *candidate)
 {
-    getDate(&candidate->birthday);
+    printf("Enter Candidate Information:\n");
     getName(&candidate->name);
+    printf("Birth Date:\n");
+    getDate(&candidate->birthday);
+    printf("Position: ");
+    getString(candidate->position, 32);
+    printf("Party: ");
+    getString(candidate->party, 128);
 }
 
 void displayDate(dateType Date)
