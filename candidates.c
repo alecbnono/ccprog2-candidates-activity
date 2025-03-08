@@ -185,21 +185,27 @@ void display(candidateType Info)
 void displayByParty(aCandidates Candidate, Str128 partyName, int numCandidates)
 {
     int     i = 0,
-            ctrParty = SearchParty(Candidate, partyName, numCandidates);
+            ctr = 0,
+            numParty = SearchParty(Candidate, partyName, numCandidates);
     char    prompt = '\n';
 
     do
     {
         if(strcmp(Candidate[i].party, partyName) == 0)
         {
+            printf("CANDIDATE #%d:\n", ctr + 1);
             display(Candidate[i]);
-            do
+            if(ctr < numParty - 1)
             {
-                printf("Next Candidate[1] / Exit[0]\n");
-                scanf(" %c", &prompt);
-                if(prompt > '1' || prompt < '0')
-                    printf("Invalid input. Please enter again.\n");
-            } while(prompt > '1' || prompt < '0');
+                do
+                {
+                    printf("Next Candidate[1] / Exit[0]:");
+                    scanf(" %c", &prompt);
+                    if(prompt > '1' || prompt < '0')
+                        printf("Invalid input. Please enter again.\n");
+                } while(prompt > '1' || prompt < '0');
+            }
+            ctr++;
         }
         i++;
     }while(prompt == '1' && i < numCandidates);
@@ -309,6 +315,7 @@ int main()
                 
                 break;
             case 4:
+                printf("\n");
                 printf("Enter a Party: ");
                 getString(partyName, 128);
                 displayByParty(arrCandidates, partyName, numCandidates);
