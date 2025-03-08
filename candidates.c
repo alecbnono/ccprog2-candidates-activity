@@ -47,21 +47,21 @@ typedef candidateType aCanditates[20];
 
 void getName(nameType *name)
 {
-    printf("Enter First Name: ");
-    scanf("%s", name->first);
     printf("Enter Last Name: ");
-    scanf("%s", name->last);
+    scanf(" %s", name->last);
+    printf("Enter First Name: ");
+    scanf(" %s", name->first);
     printf("Enter Middle Initial: ");
     scanf("%c", &name->middle);
 }
 void getDate(dateType *date)
 {
-    printf("Enter Birthyear: ");
-    scanf("%d", &date->year);
-    printf("Enter Birthmonth: ");
+    printf("Enter Month: ");
     scanf("%d", &date->month);
-    printf("Enter Birthday: ");
+    printf("Enter Day: ");
     scanf("%d", &date->day);
+    printf("Enter Year: ");
+    scanf("%d", &date->year);
 }
 void getInput(candidateType *candidate)
 {
@@ -180,7 +180,8 @@ int main()
         switch (choice)
         {
             case 1:
-                getInput(&arrCandidates[0]);
+                getInput(&arrCandidates[numCandidates]);
+                numCandidates++;
                 break;
             case 2:
                 sortAlphabetical(arrCandidates);
