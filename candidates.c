@@ -57,7 +57,7 @@ void getString(char String[], int maxChar)
         String[i] = blank;
         i++;
     }
-    
+
     do
     {  scanf("%c", &ch);
         if (ch != '\n')
@@ -117,7 +117,7 @@ void getInput(candidateType *candidate)
     }while(i < 10 && strcmp(billTemp, "0"));
 
     printf("Rating:\n");
-    printf("Confidence: ");
+    printf("Confidence Rating: ");
     scanf("%f", &candidate->rating.confidence);
     printf("Administered by: ");
     getString(candidate->rating.orgAdmin, 32);
@@ -138,23 +138,31 @@ void display(candidateType Info)
 {
     int i;
 
+    printf("\tBASIC INFORMATION:\n");
     printf("Name: %s, %s %c. \n", Info.name.last, Info.name.first, Info.name.middle);
     printf("Birthday: ");
     displayDate(Info.birthday);
     printf("Party: %s \n", Info.party);
-    printf("Position: %s \n", Info.position);
+    printf("Position: %s \n\n", Info.position);
 
-    for (i = 0; i < Info.numBills; i++)
-    {
-        printf("Bill Name: %s \n", Info.bill[i].billName);
-        displayDate(Info.bill[i].date);
-    }
+    printf("\tBILLS PASSED:\n");
+    if(Info.numBills > 0)
+        for (i = 0; i < Info.numBills; i++)
+        {
+            printf("Bill #%d Name: %s \n", i + 1, Info.bill[i].billName);
+            printf("Date Passed: ");
+            displayDate(Info.bill[i].date);
+            printf("\n");
+        }
+    else
+        printf("NO BILLS PASSED\n\n");
 
+    printf("\tRATING\n");
     printf("Confidence Rating: %.2f \n", Info.rating.confidence);
-    printf("Survey Organizer: %s \n", Info.rating.orgAdmin);
+    printf("Administered by: %s \n", Info.rating.orgAdmin);
     printf("Date of Survey: ");
     displayDate(Info.rating.date);
-
+    printf("\n");
 }
 
 void displayByParty(aCanditates Candidate, Str128 partyName, int numCandidates)
