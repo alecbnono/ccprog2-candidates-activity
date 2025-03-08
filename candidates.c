@@ -43,7 +43,7 @@ typedef struct
     ratingType  rating;
 } candidateType;
 
-typedef candidateType aCanditates[20];
+typedef candidateType aCandidates[20];
 
 void getString(char String[], int maxChar)
 {
@@ -127,6 +127,7 @@ void getInput(candidateType *candidate)
     getString(candidate->rating.orgAdmin, 32);
     printf("Date of Survey\n");
     getDate(&candidate->rating.date);
+    printf("\n");
 }
 
 void displayDate(dateType Date)
@@ -142,7 +143,7 @@ void display(candidateType Info)
 {
     int i;
 
-    printf("\tCANDIDATE INFORMATION:\n");
+    printf("\tBASIC INFORMATION:\n");
     printf("Name: %s, %s %c. \n", Info.name.last, Info.name.first, Info.name.middle);
     printf("Birthday: ");
     displayDate(Info.birthday);
@@ -169,14 +170,14 @@ void display(candidateType Info)
     printf("\n");
 }
 
-void displayByParty(aCanditates Candidate, Str128 partyName, int numCandidates)
+void displayByParty(aCandidates Candidate, Str128 partyName, int numCandidates)
 {
     int i = 0;
     char prompt = '\n';
 
     do
     {
-        if (strcmp(Candidate[i].party, partyName) == 0)
+        if(strcmp(Candidate[i].party, partyName) == 0)
         {
             display(Candidate[i]);
             printf("Next Candidate[Enter] / Exit[0]\n");
@@ -195,7 +196,7 @@ void swap(candidateType *candidateA, candidateType *candidateB)
     *candidateB = temp; 
 }
 
-void sortByRating(aCanditates Candidate, int numCandidates)
+void sortByRating(aCandidates Candidate, int numCandidates)
 {
     int i, j, low_ind;
     
@@ -210,7 +211,7 @@ void sortByRating(aCanditates Candidate, int numCandidates)
     }
 }
 
-void sortAlphabetical(aCanditates Candidate, int numCandidates)
+void sortAlphabetical(aCandidates Candidate, int numCandidates)
 {
     int i, j, low_ind;
     
@@ -227,7 +228,7 @@ void sortAlphabetical(aCanditates Candidate, int numCandidates)
 
 int main()
 {
-    aCanditates arrCandidates;
+    aCandidates arrCandidates;
     int         i = 0,
                 numCandidates = 0,
                 choice = -1;
@@ -236,6 +237,7 @@ int main()
     
     do
     {
+        printf("\tMAIN MENU\n");
         printf("[1] Add Candidate Info\n");
         printf("[2] Display All Candidates \n");
         printf("[3] Display by Rating\n");
@@ -253,15 +255,21 @@ int main()
         switch (choice)
         {
             case 1:
+                printf("\n");
                 getInput(&arrCandidates[numCandidates]);
                 numCandidates++;
                 break;
             case 2:
+                printf("\n");
                 sortAlphabetical(arrCandidates, numCandidates);
                 for(i = 0; i < numCandidates; i++)
+                {   
+                    printf("CANDIDATE #%d:\n", i + 1);
                     display(arrCandidates[i]);
+                }
                 break;
             case 3:
+                printf("\n");
                 sortByRating(arrCandidates, numCandidates);
                 break;
             case 4:
