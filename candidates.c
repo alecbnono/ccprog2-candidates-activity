@@ -151,13 +151,14 @@ void sortAlphabetical(aCanditates Candidate)
     } 
 }
 
-void navigateMainMenu(aCanditates Candidate)
+int main()
 {
-    int i = 0,
-        numCandidates = 0,
-        choice = -1;
-    char prompt;
-    Str128 partyName;
+    aCanditates arrCandidates;
+    int         i = 0,
+                numCandidates = 0,
+                choice = -1;
+    char        prompt;
+    Str128      partyName;
     
     do
     {
@@ -179,27 +180,23 @@ void navigateMainMenu(aCanditates Candidate)
         switch (choice)
         {
             case 1:
-                getInput(&Candidate[0]);
+                getInput(&arrCandidates[0]);
                 break;
             case 2:
-                sortAlphabetical(Candidate);
+                sortAlphabetical(arrCandidates);
                 for(i = 0; i < numCandidates; i++)
-                    display(Candidate[i]);
+                    display(arrCandidates[i]);
                 break;
             case 3:
-                sortByRating(Candidate);
+                sortByRating(arrCandidates);
                 break;
             case 4:
                 printf("Enter a Party: ");
                 scanf("%s", partyName);
-                displayByParty(Candidate, partyName);
+                displayByParty(arrCandidates, partyName);
                 break;
         }
     }while(choice != 0);
-}
 
-int main()
-{
-    
     return 0;
 }
