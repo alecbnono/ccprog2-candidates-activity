@@ -59,7 +59,8 @@ void getString(char String[], int maxChar)
     }
 
     do
-    {  scanf("%c", &ch);
+    {  
+        scanf("%c", &ch);
         if (ch != '\n')
         {
             String[i] = ch;
@@ -72,19 +73,19 @@ void getString(char String[], int maxChar)
 void getName(nameType *name)
 {
     printf("Last Name: ");
-    scanf(" %s", name->last);
+    getString(name->last, 20);
     printf("First Name: ");
-    scanf(" %s", name->first);
+    getString(name->first, 20);
     printf("Middle Initial: ");
     scanf(" %c", &name->middle);
 }
 void getDate(dateType *date)
 {
-    printf("Month (Numerical): ");
+    printf("    Month (Numerical): ");
     scanf("%d", &date->month);
-    printf("Day: ");
+    printf("    Day: ");
     scanf("%d", &date->day);
-    printf("Year: ");
+    printf("    Year: ");
     scanf("%d", &date->year);
 }
 void getInput(candidateType *candidate)
@@ -92,7 +93,7 @@ void getInput(candidateType *candidate)
     int i = 0;
     Str128 billTemp;
     
-    printf("Enter Candidate Information:\n");
+    printf("\tCANDIDATE INFORMATION:\n");
     getName(&candidate->name);
     printf("Birth Date:\n");
     getDate(&candidate->birthday);
@@ -100,7 +101,9 @@ void getInput(candidateType *candidate)
     getString(candidate->position, 32);
     printf("Party: ");
     getString(candidate->party, 128);
-    printf("Bills Passed:\n");
+    printf("\n");
+
+    printf("\tBILLS PASSED:\n");
     do 
     {
         printf("Enter [0] in Bill Name to exit.\n");
@@ -115,8 +118,9 @@ void getInput(candidateType *candidate)
         }
         i++;
     }while(i < 10 && strcmp(billTemp, "0"));
+    printf("\n");
 
-    printf("Rating:\n");
+    printf("\tRATING:\n");
     printf("Confidence Rating: ");
     scanf("%f", &candidate->rating.confidence);
     printf("Administered by: ");
@@ -138,7 +142,7 @@ void display(candidateType Info)
 {
     int i;
 
-    printf("\tBASIC INFORMATION:\n");
+    printf("\tCANDIDATE INFORMATION:\n");
     printf("Name: %s, %s %c. \n", Info.name.last, Info.name.first, Info.name.middle);
     printf("Birthday: ");
     displayDate(Info.birthday);
