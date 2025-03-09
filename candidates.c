@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
+/* 
+Group Members:
+Nono, Alec Marx
+Santiago, Juan Ramon
+Sy, Prince Matthew
+*/
 typedef char Str20[21];
 typedef char Str128[129];
 typedef char Str32[33];
