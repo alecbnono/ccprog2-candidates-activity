@@ -93,13 +93,28 @@ void getName(nameType *name)
 }
 void getDate(dateType *date)
 {
-    printf("    Month (Numerical): ");
-    scanf("%d", &date->month);
-    printf("    Day: ");
-    scanf("%d", &date->day);
-    printf("    Year: ");
-    scanf("%d", &date->year);
+        do
+        {
+                printf("    Month (Numerical): ");
+                scanf("%d", &date->month);
+                if (date->month < 1 || date->month > 12) 
+                        printf("Invalid input. Please enter again.\n");
+        }
+        while (date->month < 1 || date->month > 12);
+
+        do
+        {
+                printf("    Day: ");
+                scanf("%d", &date->day);
+                if (date->day < 1 || date->day > 31) 
+                        printf("Invalid input. Please enter again.\n");
+        }
+        while (date->day < 1 || date->day > 31);
+
+        printf("    Year: ");
+        scanf("%d", &date->year);
 }
+
 void getInput(candidateType *candidate)
 {
     int i = 0;
