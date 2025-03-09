@@ -185,18 +185,18 @@ void display(candidateType Info)
 void displayByParty(aCandidates Candidate, Str128 partyName, int numCandidates)
 {
     int     i = 0,
-            ctr = 0,
+            ctr = 1,
             numParty = SearchParty(Candidate, partyName, numCandidates);
-    char    prompt = '\n';
+    char    prompt = '1';
 
     if(numParty > 0)
         do
         {
-            if(strcmp(Candidate[i].party, partyName) == 0)
+            if(!strcmp(Candidate[i].party, partyName))
             {
-                printf("CANDIDATE #%d:\n", ctr + 1);
+                printf("CANDIDATE #%d:\n", ctr);
                 display(Candidate[i]);
-                if(ctr < numParty - 1)
+                if(ctr < numParty)
                 {
                     do
                     {
